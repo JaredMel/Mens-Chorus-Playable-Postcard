@@ -9,22 +9,10 @@ class Front extends Phaser.Scene {
     }
 
     create() {
-        //let hitarea = this.add.circle()
-        let head = this.add.image(game.config.width/2, game.config.height/2, 'temp').setOrigin(0.5,0.5).setInteractive()
+        let head = new Head(this, 0, game.config.width/2, game.config.height/2)
+        let head2 = new Head(this, 1, game.config.width/1.5, game.config.height/1.5)
 
-        head.on('pointerdown', function () {
-            currentCombo[index] = 0
-            console.log(currentCombo[index]) // DEBUG
-            if (currentCombo[index] == correctCombo[index]) {
-                if (currentCombo.length == correctCombo.length) {
-                    switchScenes = true
-                }
-            } else {
-                console.log("reset") // DEBUG
-                currentCombo = []
-                index = 0
-            }
-        })
+        this.input.enableDebug(head) // DEBUG
     }
 
     update() {
