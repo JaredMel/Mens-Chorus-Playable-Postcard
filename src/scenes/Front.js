@@ -9,13 +9,34 @@ class Front extends Phaser.Scene {
     }
 
     create() {
-        let head = new Head(this, 0, game.config.width/2, game.config.height/2)
-        let head2 = new Head(this, 1, game.config.width/1.5, game.config.height/1.5)
+        for (let i = 0; i < 2; i++) {
+            for (let j = 0; j < 6; j++) {
+                new Head(this, comboNumber, spot, row, 'temp')
+                comboNumber++
+                spot += 100
+            }
+            row -= 100
+            spot = 200
+        }
 
-        this.input.enableDebug(head) // DEBUG
+        // texts
+        let comboDisplayConfig = {
+            fontFamily: 'Times New Roman',
+            fontSize: '30px',
+            color: '#ffffff',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+        this.comboDisplayText = this.add.text(game.config.width/2, game.config.height/6, comboDisplay, comboDisplayConfig).setOrigin(0.5)
+        this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 100, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
     }
 
     update() {
+        this.comboDisplayText.text = comboDisplay
         if (switchScenes) {
             this.scene.start('backScene')
         }
