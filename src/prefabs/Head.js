@@ -1,5 +1,5 @@
 class Head extends Phaser.GameObjects.Sprite {
-    constructor(scene, codeNum, x, y, image) {
+    constructor(scene, codeNum, x, y, image, syn) {
         let hitarea = new Phaser.Geom.Circle(16, 16, 16)
         super(scene, x, y, image).setScale(2, 2).setOrigin(0.5,0.5).setInteractive(hitarea, Phaser.Geom.Circle.Contains)
 
@@ -11,14 +11,15 @@ class Head extends Phaser.GameObjects.Sprite {
             currentCombo[index] = codeNum
             console.log(currentCombo[index]) // DEBUG
             if (currentCombo[index] == correctCombo[index]) {
+                syn.triggerAttackRelease(notes[index], "16n")
                 if (currentCombo[index] > 9) {
-                    comboDisplay[displayIndex] = comboDisplayDEBUG[displayIndex] //
-                    displayIndex++
-                    comboDisplay[displayIndex] = comboDisplayDEBUG[displayIndex] //
-                    displayIndex += 2
+                    // comboDisplay[displayIndex] = comboDisplayDEBUG[displayIndex] //
+                    // displayIndex++
+                    // comboDisplay[displayIndex] = comboDisplayDEBUG[displayIndex] //
+                    // displayIndex += 2
                 } else {
-                    comboDisplay[displayIndex] = comboDisplayDEBUG[displayIndex] //
-                    displayIndex += 2
+                    // comboDisplay[displayIndex] = comboDisplayDEBUG[displayIndex] //
+                    // displayIndex += 2
                 }
                 if (currentCombo.length == correctCombo.length) {
                     switchScenes = true
@@ -26,6 +27,7 @@ class Head extends Phaser.GameObjects.Sprite {
                     index++;
                 }
             } else {
+                // Play Incorrect
                 console.log("reset") // DEBUG
                 currentCombo = []
                 index = 0
