@@ -70,6 +70,10 @@ class Front extends Phaser.Scene {
         songSynth.triggerAttackRelease(val.note, val.dur, time);
         }, notes2);
         
+        this.clock = this.time.delayedCall(10000, () => {
+            this.scene.start('backScene')
+        })
+        this.clock.paused = true
     }
 
     update() {
@@ -79,7 +83,9 @@ class Front extends Phaser.Scene {
             Tone.start().then(() => {
                 Tone.Transport.start();
                 this.song.start(0);
+                this.clock.paused = false
             })
         }
+        
     }
 }
