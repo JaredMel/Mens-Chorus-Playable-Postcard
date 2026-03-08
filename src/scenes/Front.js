@@ -13,21 +13,10 @@ class Front extends Phaser.Scene {
         this.synth = new Tone.Synth().toDestination();
         const songSynth = new Tone.PolySynth(Tone.Synth).toDestination();
 
-        // create and place heads
-        for (let i = 0; i < 2; i++) {
-            for (let j = 0; j < 6; j++) {
-                new Head(this, comboNumber, spot, row, 'temp', this.synth)
-                comboNumber++
-                spot += 100
-            }
-            row -= 100
-            spot = 200
-        }
-
         // texts
         let comboDisplayConfig = {
             fontFamily: 'Times New Roman',
-            fontSize: '30px',
+            fontSize: '25px',
             color: '#ffffff',
             align: 'center',
             padding: {
@@ -37,7 +26,21 @@ class Front extends Phaser.Scene {
             fixedWidth: 0
         }
         this.comboDisplayText = this.add.text(game.config.width/2, game.config.height/6, comboDisplay, comboDisplayConfig).setOrigin(0.5)
-        this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 100, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
+        //this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 100, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
+
+        // create and place heads
+        let comboNoteIndex = 0
+        for (let i = 0; i < 2; i++) {
+            for (let j = 0; j < 6; j++) {
+                new Head(this, comboNumber, spot, row, 'temp', this.synth)
+                this.add.text(spot, row-50, comboNote[comboNoteIndex], comboDisplayConfig).setOrigin(0.5)
+                comboNoteIndex++
+                comboNumber++
+                spot += 100
+            }
+            row -= 100
+            spot = 200
+        }
 
         // song to play after correct combination
         const notes2 = [
@@ -69,23 +72,50 @@ class Front extends Phaser.Scene {
         this.song = new Tone.Part((time, val) => {
         songSynth.triggerAttackRelease(val.note, val.dur, time);
         }, notes2);
+
+        // IGNORE THIS
+        // const lose = [
+        // { time: '0:0', note: 'B2', dur: '4n' },
+        // { time: '0:1', note: 'A#2', dur: '4n' },
+        // { time: '0:2', note: 'A2', dur: '4n' },
+        // { time: '0:3', note: 'Ab2', dur: '1n' },
+        // ];
+        // this.lose = new Tone.Part((time, val) => {
+        // songSynth.triggerAttackRelease(val.note, val.dur, time);
+        // }, lose);
         
         this.clock = this.time.delayedCall(10000, () => {
+            this.song.stop()
+            Tone.Transport.stop()
             this.scene.start('backScene')
         })
         this.clock.paused = true
+
+        // IGNORE THIS
+        // this.reset = this.time.delayedCall(3000, () => {
+        //     this.resetSong = false
+        // })
+        // this.reset.paused = true
+        //let now = Tone.now()
     }
 
     update() {
         this.comboDisplayText.text = comboDisplay
         if (switchScenes) {
-            //this.scene.start('backScene')
             Tone.start().then(() => {
-                Tone.Transport.start();
-                this.song.start(0);
+                Tone.Transport.start()
+                this.song.start(0)
                 this.clock.paused = false
             })
         }
-        
+        // IGNORE THIS
+        // if (resetSong) {
+        //     for (let j = 0; j < 4; j++) {
+        //         Tone.Transport.start()
+        //         this.lose.start(0)
+        //     }
+        // } else {
+        //     Tone
+        // }
     }
 }

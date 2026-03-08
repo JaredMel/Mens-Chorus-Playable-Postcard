@@ -9,18 +9,11 @@ class Head extends Phaser.GameObjects.Sprite {
 
         this.on('pointerdown', function () {
             currentCombo[index] = codeNum
-            console.log(currentCombo[index]) // DEBUG
+            //console.log(notes[index]) // DEBUG
             if (currentCombo[index] == correctCombo[index]) {
                 syn.triggerAttackRelease(notes[index], "16n")
-                if (currentCombo[index] > 9) {
-                    // comboDisplay[displayIndex] = comboDisplayDEBUG[displayIndex] //
-                    // displayIndex++
-                    // comboDisplay[displayIndex] = comboDisplayDEBUG[displayIndex] //
-                    // displayIndex += 2
-                } else {
-                    // comboDisplay[displayIndex] = comboDisplayDEBUG[displayIndex] //
-                    // displayIndex += 2
-                }
+                comboDisplay += comboDisplayDEBUG[displayIndex] + comboDisplayDEBUG[displayIndex+1] + " "
+                displayIndex += 3
                 if (currentCombo.length == correctCombo.length) {
                     switchScenes = true
                 } else {
@@ -28,6 +21,9 @@ class Head extends Phaser.GameObjects.Sprite {
                 }
             } else {
                 // Play Incorrect
+                syn.triggerAttackRelease(comboNote[codeNum-1], "16n")
+                comboDisplay = comboDisplayReset
+                displayIndex = 0
                 console.log("reset") // DEBUG
                 currentCombo = []
                 index = 0
