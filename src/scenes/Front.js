@@ -29,10 +29,12 @@ class Front extends Phaser.Scene {
         //this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 100, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
 
         // create and place heads
+        this.headArray = []
         let comboNoteIndex = 0
         for (let i = 0; i < 2; i++) {
             for (let j = 0; j < 6; j++) {
-                new Head(this, comboNumber, spot, row, 'temp', this.synth)
+                this.temp = new Head(this, comboNumber, spot, row, 'temp', this.synth)
+                this.headArray[comboNoteIndex] = this.temp
                 this.add.text(spot, row-50, comboNote[comboNoteIndex], comboDisplayConfig).setOrigin(0.5)
                 comboNoteIndex++
                 comboNumber++
@@ -90,6 +92,13 @@ class Front extends Phaser.Scene {
             this.scene.start('backScene')
         })
         this.clock.paused = true
+        
+        // timer for glow effect
+        this.glowClock = this.time.delayedCall(10000, () => {
+            turnOnGlow = true
+        })
+        // this.glowClock.paused = true
+        // headArray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
 
         // IGNORE THIS
         // this.reset = this.time.delayedCall(3000, () => {
@@ -107,6 +116,15 @@ class Front extends Phaser.Scene {
                 this.song.start(0)
                 this.clock.paused = false
             })
+        }
+        if (turnOnGlow) {
+            this.headArray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
+            turnOnGlow = false
+        } else if (chosen) {
+            this.headArray[correctCombo[index-1]].postFX.addGlow(0xFFFF33, 0, 0)
+            turnOnGlow = false
+            chosen = false
+            this.glowClock.reset()
         }
         // IGNORE THIS
         // if (resetSong) {

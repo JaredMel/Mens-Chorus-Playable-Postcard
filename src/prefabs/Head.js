@@ -9,6 +9,7 @@ class Head extends Phaser.GameObjects.Sprite {
 
         this.on('pointerdown', function () {
             currentCombo[index] = codeNum
+            chosen = true
             //console.log(notes[index]) // DEBUG
             if (currentCombo[index] == correctCombo[index]) {
                 syn.triggerAttackRelease(notes[index], "16n")
@@ -29,13 +30,5 @@ class Head extends Phaser.GameObjects.Sprite {
                 index = 0
             }
         })
-    }
-
-    replaceChar(origString, replaceChar, index) {
-        let firstPart = origString.substr(0, index);
-        let lastPart = origString.substr(index + 1);
-      
-        let newString = firstPart + replaceChar + lastPart;
-        return newString;
     }
 }
