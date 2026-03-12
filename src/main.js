@@ -7,6 +7,7 @@
 "use strict"
 
 let config = {
+    parent: 'phaser-game',
     type: Phaser.AUTO,
     width: 900,
     height: 600,
@@ -20,7 +21,10 @@ let currentCombo = []
 var index = 0
 let switchScenes = false
 let turnOnGlow = false
-let chosen = false
+let glowEffect
+let glowHead
+let resetGlowClock = false
+let glowIsOn = false
 
 let row = 400
 let spot = 200
@@ -29,4 +33,4 @@ let comboNote = ["E5", "B3", "D4", "A4", "D5", "B4", "G4", "C5", "F4", "E4", "C4
 let displayIndex = 0
 let comboDisplay = ""
 let comboDisplayReset = ""
-let comboDisplayDEBUG = "C4 D4 F4 D4 F4 F4 E4 C4 D4 F4 D4 E4 E4 D4 C4 D4 F4 D4 D4 G4 C4 C4 G4 F4"
+let comboDisplayDEBUG = "C4 D4 F4 D4 F4 F4 E4 C4 D4 F4 D4 E4 E4 D4"

@@ -42,7 +42,8 @@ class Front extends Phaser.Scene {
             fixedWidth: 0
         }
         this.comboDisplayText = this.add.text(game.config.width/2, game.config.height/6, comboDisplay, comboDisplayConfig).setOrigin(0.5)
-        //this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 100, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
+        this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 50, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
+        this.comboDisplayTextDEBUG.visible = false
 
         // create and place heads
         const graphics = this.add.graphics({ fillStyle: { color: 0xffffff } });
@@ -94,17 +95,6 @@ class Front extends Phaser.Scene {
         this.song = new Tone.Part((time, val) => {
         songSynth.triggerAttackRelease(val.note, val.dur, time);
         }, notes2);
-
-        // IGNORE THIS
-        // const lose = [
-        // { time: '0:0', note: 'B2', dur: '4n' },
-        // { time: '0:1', note: 'A#2', dur: '4n' },
-        // { time: '0:2', note: 'A2', dur: '4n' },
-        // { time: '0:3', note: 'Ab2', dur: '1n' },
-        // ];
-        // this.lose = new Tone.Part((time, val) => {
-        // songSynth.triggerAttackRelease(val.note, val.dur, time);
-        // }, lose);
         
         this.clock = this.time.delayedCall(10000, () => {
             this.song.stop()
@@ -114,30 +104,38 @@ class Front extends Phaser.Scene {
         this.clock.paused = true
         
         // timer for glow effect
-        this.glowClock = this.time.delayedCall(10000, () => {
-            turnOnGlow = true
-        })
+        this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray])
         // this.glowClock.paused = true
         // headArray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
+
+        // Debugging info
+        this.debug = this.input.keyboard.addKey('Z')
+        document.getElementById('info').innerHTML = '<strong>Front.js</strong><br>Z: Show Correct Combination'
+    }
+
+    glow(harray) {
+        glowEffect = harray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
+        glowHead = harray[correctCombo[index]-1]
+        glowIsOn = true
     }
 
     update() {
         this.comboDisplayText.text = comboDisplay
         if (switchScenes) {
+            this.glowClock.paused = true
             Tone.start().then(() => {
                 Tone.Transport.start()
                 this.song.start(0)
                 this.clock.paused = false
             })
         }
-        // if (turnOnGlow) {
-        //     this.headArray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
-        //     turnOnGlow = false
-        // } else if (chosen) {
-        //     this.headArray[correctCombo[index-1]].postFX.addGlow(0xFFFF33, 0, 0)
-        //     turnOnGlow = false
-        //     chosen = false
-        //     this.glowClock.reset()
-        // }
+        if (resetGlowClock) {
+            this.time.removeEvent(this.glowClock)
+            this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray])
+            resetGlowClock = false
+        }
+        if (Phaser.Input.Keyboard.JustDown(this.debug)) {
+            this.comboDisplayTextDEBUG.visible = !this.comboDisplayTextDEBUG.visible
+        }
     }
 }

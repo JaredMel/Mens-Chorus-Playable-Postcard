@@ -8,8 +8,10 @@ class Head extends Phaser.GameObjects.Sprite {
 
         this.on('pointerdown', function () {
             currentCombo[index] = codeNum
-            chosen = true
-            //console.log(notes[index]) // DEBUG
+            if (glowIsOn) {
+                glowHead.postFX.remove(glowEffect)
+            }
+            glowIsOn = false
             if (currentCombo[index] == correctCombo[index]) {
                 syn.triggerAttackRelease(notes[index], "16n")
                 comboDisplay += comboDisplayDEBUG[displayIndex] + comboDisplayDEBUG[displayIndex+1] + " "
@@ -17,6 +19,7 @@ class Head extends Phaser.GameObjects.Sprite {
                 if (currentCombo.length == correctCombo.length) {
                     switchScenes = true
                 } else {
+                    resetGlowClock = true
                     index++;
                 }
             } else {
@@ -24,9 +27,9 @@ class Head extends Phaser.GameObjects.Sprite {
                 syn.triggerAttackRelease(comboNote[codeNum-1], "16n")
                 comboDisplay = comboDisplayReset
                 displayIndex = 0
-                console.log("reset") // DEBUG
                 currentCombo = []
                 index = 0
+                resetGlowClock = true
             }
         })
     }
