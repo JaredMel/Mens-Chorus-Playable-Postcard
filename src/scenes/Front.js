@@ -5,10 +5,26 @@ class Front extends Phaser.Scene {
 
     preload() {
         this.load.path = './assets/'
-        this.load.image('temp', 'art/TempHead.png')
+        this.load.image('background', 'background_image.png')
+        this.load.image('temp', 'TempHead.png')
+        this.load.image('jared', 'Jared_Head.png')
+        this.load.image('aiden', 'Aiden_Head.png')
+        this.load.image('alex', 'Alex_Head.png')
+        this.load.image('colby', 'Colby_Head.png')
+        this.load.image('drew', 'Drew_Head.png')
+        this.load.image('jack', 'Jack_Head.png')
+        this.load.image('jaden', 'Jaden_Head.png')
+        this.load.image('landon', 'Landon_Head.png')
+        this.load.image('nathan', 'Nathan_Head.png')
+        this.load.image('parker', 'Parker_Head.png')
+        this.load.image('seth', 'Seth_Head.png')
+        this.load.image('vince', 'Vince_Head.png')
     }
 
     create() {
+        // background
+        this.add.image(0, 0, 'background').setOrigin(0)
+
         // synths
         this.synth = new Tone.Synth().toDestination();
         const songSynth = new Tone.PolySynth(Tone.Synth).toDestination();
@@ -17,7 +33,7 @@ class Front extends Phaser.Scene {
         let comboDisplayConfig = {
             fontFamily: 'Times New Roman',
             fontSize: '25px',
-            color: '#ffffff',
+            color: '#000000',
             align: 'center',
             padding: {
                 top: 5,
@@ -29,18 +45,22 @@ class Front extends Phaser.Scene {
         //this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 100, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
 
         // create and place heads
+        const graphics = this.add.graphics({ fillStyle: { color: 0xffffff } });
+        let heads = ['jaden', 'jack', 'aiden', 'parker', 'alex', 'colby', 'jared', 'landon', 'drew', 'nathan', 'vince', 'seth']
         this.headArray = []
         let comboNoteIndex = 0
         for (let i = 0; i < 2; i++) {
             for (let j = 0; j < 6; j++) {
-                this.temp = new Head(this, comboNumber, spot, row, 'temp', this.synth)
+                this.temp = new Head(this, comboNumber, spot, row, heads[comboNoteIndex], this.synth).setScale(0.15)
                 this.headArray[comboNoteIndex] = this.temp
-                this.add.text(spot, row-50, comboNote[comboNoteIndex], comboDisplayConfig).setOrigin(0.5)
+                let body = new Phaser.Geom.Rectangle(spot-25, row+25, 50, 100)
+                graphics.fillRectShape(body)
+                this.add.text(spot, row+60, comboNote[comboNoteIndex], comboDisplayConfig).setOrigin(0.5)
                 comboNoteIndex++
                 comboNumber++
                 spot += 100
             }
-            row -= 100
+            row -= 150
             spot = 200
         }
 
@@ -99,13 +119,6 @@ class Front extends Phaser.Scene {
         })
         // this.glowClock.paused = true
         // headArray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
-
-        // IGNORE THIS
-        // this.reset = this.time.delayedCall(3000, () => {
-        //     this.resetSong = false
-        // })
-        // this.reset.paused = true
-        //let now = Tone.now()
     }
 
     update() {
@@ -117,23 +130,14 @@ class Front extends Phaser.Scene {
                 this.clock.paused = false
             })
         }
-        if (turnOnGlow) {
-            this.headArray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
-            turnOnGlow = false
-        } else if (chosen) {
-            this.headArray[correctCombo[index-1]].postFX.addGlow(0xFFFF33, 0, 0)
-            turnOnGlow = false
-            chosen = false
-            this.glowClock.reset()
-        }
-        // IGNORE THIS
-        // if (resetSong) {
-        //     for (let j = 0; j < 4; j++) {
-        //         Tone.Transport.start()
-        //         this.lose.start(0)
-        //     }
-        // } else {
-        //     Tone
+        // if (turnOnGlow) {
+        //     this.headArray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
+        //     turnOnGlow = false
+        // } else if (chosen) {
+        //     this.headArray[correctCombo[index-1]].postFX.addGlow(0xFFFF33, 0, 0)
+        //     turnOnGlow = false
+        //     chosen = false
+        //     this.glowClock.reset()
         // }
     }
 }

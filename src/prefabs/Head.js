@@ -1,7 +1,6 @@
 class Head extends Phaser.GameObjects.Sprite {
     constructor(scene, codeNum, x, y, image, syn) {
-        let hitarea = new Phaser.Geom.Circle(16, 16, 16)
-        super(scene, x, y, image).setScale(2, 2).setOrigin(0.5,0.5).setInteractive(hitarea, Phaser.Geom.Circle.Contains)
+        super(scene, x, y, image).setScale(2, 2).setOrigin(0.5,0.5).setInteractive()
 
         this.parentScene = scene // maintain scene context
 
