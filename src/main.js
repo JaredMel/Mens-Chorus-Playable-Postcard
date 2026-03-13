@@ -11,7 +11,10 @@ let config = {
     type: Phaser.AUTO,
     width: 900,
     height: 600,
-    scene: [ Front, Back]
+    render: {
+        pixelArt: true
+    },
+    scene: [ Menu, Front, Back ]
 }
 let game = new Phaser.Game(config)
 
