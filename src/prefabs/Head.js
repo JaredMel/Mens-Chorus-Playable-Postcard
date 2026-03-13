@@ -8,6 +8,7 @@ class Head extends Phaser.GameObjects.Sprite {
 
         this.on('pointerdown', function () {
             currentCombo[index] = codeNum
+            hideInstructions = true
             if (glowIsOn) {
                 glowHead.postFX.remove(glowEffect)
             }

@@ -29,6 +29,7 @@ let glowEffect
 let glowHead
 let resetGlowClock = false
 let glowIsOn = false
+let hideInstructions = false
 
 let row = 400
 let spot = 200

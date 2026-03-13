@@ -32,7 +32,7 @@ class Menu extends Phaser.Scene {
 
     create() {
         // envelope
-        this.envelope = this.add.sprite(game.config.width/2, game.config.height/2, 'envelope', 0).setOrigin(0.5).setScale(3)
+        this.envelope = this.add.sprite(game.config.width/2, game.config.height/2, 'envelope', 0).setOrigin(0.5).setScale(3).setInteractive()
 
         // envelope animation
         this.anims.create({
@@ -44,10 +44,41 @@ class Menu extends Phaser.Scene {
                 end: 7
             })
         })
-        this.envelope.play('opening', true)
+
+        // clock to switch scenes
+        this.clock = this.time.delayedCall(1000, () => {
+            this.scene.start('frontScene')
+        })
+        this.clock.paused = true
+
+        // envelope when clicked on
+        this.envelope.on('pointerdown', function () {
+            switchScenes = true
+            this.play('opening', true)
+        })
+
+        // texts
+        let textConfig = {
+            fontFamily: 'Times New Roman',
+            fontSize: '25px',
+            color: '#ffffff',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 0
+        }
+        this.add.text(game.config.width/10, game.config.height/10, 'CREDITS:\nBackground Images:\nNote Images:\nOther Assets & Coding: Jared Melendez', textConfig)
+        textConfig.align = 'center'
+        this.add.text(game.config.width/3, game.config.height/1.5, 'Click on the Envelope to Begin', textConfig)
     }
 
     update() {
-        //this.scene.start('frontScene') // DEBUG
+        // check if switchScene
+        if (switchScenes) {
+            this.clock.paused = false
+            switchScenes = false
+        }
     }
 }

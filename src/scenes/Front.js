@@ -23,6 +23,7 @@ class Front extends Phaser.Scene {
             },
             fixedWidth: 0
         }
+        this.instructions = this.add.text(game.config.width/2, game.config.height/6, 'Click On The Heads To Play Notes\nTry To Guess The Song',comboDisplayConfig).setOrigin(0.5)
         this.comboDisplayText = this.add.text(game.config.width/2, game.config.height/6, comboDisplay, comboDisplayConfig).setOrigin(0.5)
         this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 50, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
         this.comboDisplayTextDEBUG.visible = false
@@ -110,6 +111,10 @@ class Front extends Phaser.Scene {
     update() {
         //this.scene.start('backScene') // DEBUG
         this.comboDisplayText.text = comboDisplay
+        if (hideInstructions) {
+            this.instructions.visible = false
+            hideInstructions = false
+        }
         if (switchScenes) {
             this.glowClock.paused = true
             Tone.start().then(() => {
