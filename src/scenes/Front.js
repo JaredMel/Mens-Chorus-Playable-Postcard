@@ -19,6 +19,8 @@ class Front extends Phaser.Scene {
         this.load.image('parker', 'Parker_Head.png')
         this.load.image('seth', 'Seth_Head.png')
         this.load.image('vince', 'Vince_Head.png')
+        this.load.image('back', 'back_of_card.png')
+        this.load.image('stamp', 'postcard_stamp.png')
     }
 
     create() {
@@ -120,6 +122,7 @@ class Front extends Phaser.Scene {
     }
 
     update() {
+        this.scene.start('backScene') // DEBUG
         this.comboDisplayText.text = comboDisplay
         if (switchScenes) {
             this.glowClock.paused = true
