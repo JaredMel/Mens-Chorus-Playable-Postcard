@@ -1,6 +1,6 @@
 class Head extends Phaser.GameObjects.Sprite {
-    constructor(scene, codeNum, x, y, image, syn) {
-        super(scene, x, y, image).setScale(2, 2).setOrigin(0.5,0.5).setInteractive()
+    constructor(scene, codeNum, x, y, image, syn, emit) {
+        super(scene, x, y, image).setScale(0.15).setOrigin(0.5,0.5).setInteractive()
 
         this.parentScene = scene // maintain scene context
 
@@ -14,6 +14,8 @@ class Head extends Phaser.GameObjects.Sprite {
             glowIsOn = false
             if (currentCombo[index] == correctCombo[index]) {
                 syn.triggerAttackRelease(notes[index], "16n")
+                emit.setTexture(noteLengths[index])
+                emit.explode(8)
                 comboDisplay += comboDisplayDEBUG[displayIndex] + comboDisplayDEBUG[displayIndex+1] + " "
                 displayIndex += 3
                 if (currentCombo.length == correctCombo.length) {

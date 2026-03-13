@@ -21,6 +21,9 @@ class Front extends Phaser.Scene {
         this.load.image('vince', 'Vince_Head.png')
         this.load.image('back', 'back_of_card.png')
         this.load.image('stamp', 'postcard_stamp.png')
+        this.load.image('quarter', 'Quarter_Note.png')
+        this.load.image('eighth', 'Eighth_Note.png')
+        this.load.image('sixteenth', 'Sixteenth_Note.png')
     }
 
     create() {
@@ -51,10 +54,18 @@ class Front extends Phaser.Scene {
         const graphics = this.add.graphics({ fillStyle: { color: 0xffffff } });
         let heads = ['jaden', 'jack', 'aiden', 'parker', 'alex', 'colby', 'jared', 'landon', 'drew', 'nathan', 'vince', 'seth']
         this.headArray = []
+        let emitterConfig = {
+            speed: 200,
+            scale: { start: 0.00001, end: 0.03 },
+            alpha: {start: 1, end: 0},
+            lifespan: { min: 1000, max: 1500, steps: 1000},
+            emitting: false
+        }
         let comboNoteIndex = 0
         for (let i = 0; i < 2; i++) {
             for (let j = 0; j < 6; j++) {
-                this.temp = new Head(this, comboNumber, spot, row, heads[comboNoteIndex], this.synth).setScale(0.15)
+                this.emitter = this.add.particles(spot, row, 'eighth', emitterConfig)
+                this.temp = new Head(this, comboNumber, spot, row, heads[comboNoteIndex], this.synth, this.emitter)
                 this.headArray[comboNoteIndex] = this.temp
                 let body = new Phaser.Geom.Rectangle(spot-25, row+25, 50, 100)
                 graphics.fillRectShape(body)
@@ -107,8 +118,6 @@ class Front extends Phaser.Scene {
         
         // timer for glow effect
         this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray])
-        // this.glowClock.paused = true
-        // headArray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
 
         // Debugging info
         this.debug = this.input.keyboard.addKey('Z')
@@ -122,7 +131,7 @@ class Front extends Phaser.Scene {
     }
 
     update() {
-        this.scene.start('backScene') // DEBUG
+        //this.scene.start('backScene') // DEBUG
         this.comboDisplayText.text = comboDisplay
         if (switchScenes) {
             this.glowClock.paused = true

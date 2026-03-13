@@ -17,6 +17,7 @@ let game = new Phaser.Game(config)
 
 const correctCombo = [11, 3, 9, 3, 9, 9, 10, 11, 3, 9, 3, 10, 10, 3]
 const notes = ["C4", "D4", "F4", "D4", "F4", "F4", "E4", "C4", "D4", "F4", "D4", "E4", "E4", "D4"]
+const noteLengths = ['sixteenth', 'sixteenth', 'sixteenth', 'sixteenth', 'eighth', 'eighth', 'quarter', 'sixteenth', 'sixteenth', 'sixteenth', 'sixteenth', 'eighth', 'eighth', 'quarter']
 let currentCombo = []
 var index = 0
 let switchScenes = false
