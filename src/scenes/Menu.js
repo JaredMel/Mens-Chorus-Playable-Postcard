@@ -71,7 +71,10 @@ class Menu extends Phaser.Scene {
         }
         this.add.text(game.config.width/10, game.config.height/10, 'CREDITS:\nBackground Images:\nNote Images:\nOther Assets & Coding: Jared Melendez', textConfig)
         textConfig.align = 'center'
-        this.add.text(game.config.width/3, game.config.height/1.5, 'Click on the Envelope to Begin', textConfig)
+        this.add.text(game.config.width/3, game.config.height/1.5, 'Click on the Envelope to Begin\nPress "R" at anytime to reset', textConfig)
+
+        // Reset game button (PRESS R)
+        this.reset = this.input.keyboard.addKey('R')
     }
 
     update() {
@@ -79,6 +82,10 @@ class Menu extends Phaser.Scene {
         if (switchScenes) {
             this.clock.paused = false
             switchScenes = false
+        }
+        // reset game
+        if (Phaser.Input.Keyboard.JustDown(this.reset)) {
+            window.location.reload()
         }
     }
 }

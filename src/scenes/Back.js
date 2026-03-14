@@ -37,5 +37,15 @@ class Back extends Phaser.Scene {
         this.add.text(game.config.width/1.4, 340, "Drew Gloria\n123 NotSharingThat\n######\nCA\nUSA🦅", messageConfig).setOrigin(0.5)
         this.add.text(game.config.width/5, game.config.height/6, "3/12/2026\nSanta Cruz, CA", messageConfig).setOrigin(0.5)
         this.message = this.add.text(game.config.width/4, game.config.height/2, "Send me $5", messageConfig).setOrigin(0.5)
+
+        // Reset game button (PRESS R)
+        this.reset = this.input.keyboard.addKey('R')
+    }
+
+    update() {
+        // reset game
+        if (Phaser.Input.Keyboard.JustDown(this.reset)) {
+            window.location.reload()
+        }
     }
 }

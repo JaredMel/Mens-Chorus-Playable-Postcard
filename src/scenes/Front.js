@@ -130,6 +130,9 @@ class Front extends Phaser.Scene {
 
         // Debugging info (PRESS Z)
         this.debug = this.input.keyboard.addKey('Z')
+
+        // Reset game button (PRESS R)
+        this.reset = this.input.keyboard.addKey('R')
     }
 
     // used to apply glow onto the correct head
@@ -165,6 +168,10 @@ class Front extends Phaser.Scene {
         // shows correct combo when pressing Z (used for debug purposes)
         if (Phaser.Input.Keyboard.JustDown(this.debug)) {
             this.comboDisplayTextDEBUG.visible = !this.comboDisplayTextDEBUG.visible
+        }
+        // reset game
+        if (Phaser.Input.Keyboard.JustDown(this.reset)) {
+            window.location.reload()
         }
     }
 }
