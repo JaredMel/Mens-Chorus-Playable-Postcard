@@ -36,6 +36,7 @@
 // Finally there is a debug option for if you just want to see the correct combination
 // when guessing the song, just click "Z" and at the bottom of the screen the correct
 // combination will be visible.
+//
 "use strict"
 
 let config = {
