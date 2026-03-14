@@ -59,7 +59,7 @@ class Menu extends Phaser.Scene {
         })
 
         // text
-        this.add.bitmapText(game.config.width/10, game.config.height/10, 'momstype', 'CREDITS:\nBackground Images: AlgesCorp & AdobeStock\nPartcle Effects: Liam Pitcher\nMusic: Teacher Valarie\nOther Assets & Coding: Jared Melendez').setFontSize(25)
+        this.add.bitmapText(game.config.width/10, game.config.height/10, 'momstype', 'CREDITS:\nBackground Images: AlgesCorp & AdobeStock\nPartcle Effects: Liam Pitcher\nMusic: Teacher Valarie\nFont: Christoph Mueller\nOther Assets & Coding: Jared Melendez').setFontSize(25)
         this.add.bitmapText(game.config.width/4.25, game.config.height/1.5, 'momstype', 'Click on the Envelope to Begin\nPress "R" at anytime to reset').setFontSize(25).setCenterAlign()
 
         // Reset game button (PRESS R)

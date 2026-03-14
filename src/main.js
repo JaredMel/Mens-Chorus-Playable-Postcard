@@ -1,6 +1,6 @@
 // Title: Men's Chorus Playable Postcard
 // Author: Jared Melendez
-// Hours Spent: 
+// Hours Spent: ~40 hours
 // Citations: Nate Laffen - https://github.com/laffan/120-phaser-audio-examples
 //            Used some of his code as a start for manipulating Tone.js 
 //            (specifically making the song that plays after the correct combo)
@@ -15,6 +15,27 @@
 //            used this sheet music to base the parody of it in Tone.js
 //            Liam Pitcher - https://www.liampitcher.com/classical-music-blog/note-values
 //            used their pictures of notes for particle effects
+//            Christoph Mueller - https://www.dafont.com/moms-typewriter.font
+//            used his Mom's Typewriter Font
+// Aesthetic Cohesion : For this project I wanted to primarly use stock photos
+// as I felt that they better represented what a postcard looks like with the 
+// exception of the opening postcardanimation and everyones bodies as I just 
+// didn't find any good clothing only stock photos that would work well with 
+// the note names being on them and were multicolored enough. Hopefully these 
+// don't stick out too much to you.
+// Creative Tilt : I got to try and use a lot of new things for this project
+// but I would say the most intereset parts were being able to use Tone.js, 
+// using Photoshop to cut out the heads of my friends from photos I had, and
+// making the scene transition from the front of the card to the back. Each
+// of these was something I had no idea how to do at first but after looking
+// through different documentation and other's projects (thank you Nate Laffen)
+// I managed to get each to work incredibly well. There are a few features you
+// might have missed so I'll put them here, if you wait 10 seconds while trying
+// guess the next note a glow effect will appear behind the next persons head,
+// and theres an easter egg if you click on the postcard stamp on the last scene.
+// Finally there is a debug option for if you just want to see the correct combination
+// when guessing the song, just click "Z" and at the bottom of the screen the correct
+// combination will be visible.
 "use strict"
 
 let config = {

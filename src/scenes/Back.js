@@ -20,19 +20,6 @@ class Back extends Phaser.Scene {
             window.open('https://youtu.be/dQw4w9WgXcQ?si=Jkc5B4pV6iaqHAHE', '_blank')
         })
 
-        // texts
-        let messageConfig = {
-            fontFamily: 'Times New Roman',
-            fontSize: '40px',
-            color: '#000000',
-            align: 'left',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
-
         // text
         this.add.bitmapText(game.config.width/1.4, 340, 'momstype', "Drew Gloria\n123 NotSharingThat\n######\nCA\nUSA").setOrigin(0.5).setLeftAlign().setFontSize(28).setLineSpacing(35)
         this.add.bitmapText(game.config.width/5, game.config.height/6, 'momstype', "3/12/2026\nSanta Cruz, CA").setOrigin(0.5).setLeftAlign().setFontSize(30)
