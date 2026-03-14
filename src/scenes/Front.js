@@ -12,20 +12,9 @@ class Front extends Phaser.Scene {
         const songSynth = new Tone.PolySynth(Tone.Synth).toDestination();
 
         // texts
-        let comboDisplayConfig = {
-            fontFamily: 'Times New Roman',
-            fontSize: '25px',
-            color: '#000000',
-            align: 'center',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
-        this.instructions = this.add.text(game.config.width/2, game.config.height/6, 'Click On The Heads To Play Notes\nTry To Guess The Song',comboDisplayConfig).setOrigin(0.5)
-        this.comboDisplayText = this.add.text(game.config.width/2, game.config.height/6, comboDisplay, comboDisplayConfig).setOrigin(0.5)
-        this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 50, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
+        this.instructions = this.add.bitmapText(game.config.width/2, game.config.height/6, 'momstype', 'Click On The Heads To Play Notes\nTry To Guess The Song').setOrigin(0.5).setCenterAlign().setFontSize(25)
+        this.comboDisplayText = this.add.bitmapText(game.config.width/2, game.config.height/6, 'momstype', comboDisplay).setOrigin(0.5).setCenterAlign().setFontSize(25)
+        this.comboDisplayTextDEBUG = this.add.bitmapText(game.config.width/2, game.config.height - 50, 'momstype', comboDisplayDEBUG).setOrigin(0.5).setCenterAlign().setFontSize(25) // DEBUG
         this.comboDisplayTextDEBUG.visible = false
 
         // create and place heads with bodys and emitters
@@ -65,7 +54,7 @@ class Front extends Phaser.Scene {
                 // add body to layer1
                 layer1.add([Rlegs, Llegs, body, Rarm, Larm])
                 // create note text and adds to layer2
-                let n = this.add.text(spot, row+60, comboNote[comboNoteIndex], comboDisplayConfig).setOrigin(0.5)
+                let n = this.add.bitmapText(spot, row+60, 'momstype', comboNote[comboNoteIndex]).setOrigin(0.5).setCenterAlign().setFontSize(25)
                 layer2.add(n)
                 // increment
                 comboNoteIndex++

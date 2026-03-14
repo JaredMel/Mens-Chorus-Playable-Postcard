@@ -28,6 +28,7 @@ class Menu extends Phaser.Scene {
             frameWidth: 48,
             frameHeight: 64
         })
+        this.load.bitmapFont('momstype', 'BitmapFont/MomsTypewriter.png', 'BitmapFont/MomsTypewriter.xml')
     }
 
     create() {
@@ -57,21 +58,9 @@ class Menu extends Phaser.Scene {
             this.play('opening', true)
         })
 
-        // texts
-        let textConfig = {
-            fontFamily: 'Times New Roman',
-            fontSize: '25px',
-            color: '#ffffff',
-            align: 'left',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 0
-        }
-        this.add.text(game.config.width/10, game.config.height/10, 'CREDITS:\nBackground Images:\nNote Images:\nOther Assets & Coding: Jared Melendez', textConfig)
-        textConfig.align = 'center'
-        this.add.text(game.config.width/3, game.config.height/1.5, 'Click on the Envelope to Begin\nPress "R" at anytime to reset', textConfig)
+        // text
+        this.add.bitmapText(game.config.width/10, game.config.height/10, 'momstype', 'CREDITS:\nBackground Images: AlgesCorp & AdobeStock\nPartcle Effects: Liam Pitcher\nMusic: Teacher Valarie\nOther Assets & Coding: Jared Melendez').setFontSize(25)
+        this.add.bitmapText(game.config.width/4.25, game.config.height/1.5, 'momstype', 'Click on the Envelope to Begin\nPress "R" at anytime to reset').setFontSize(25).setCenterAlign()
 
         // Reset game button (PRESS R)
         this.reset = this.input.keyboard.addKey('R')

@@ -34,9 +34,9 @@ class Back extends Phaser.Scene {
         }
 
         // text
-        this.add.text(game.config.width/1.4, 340, "Drew Gloria\n123 NotSharingThat\n######\nCA\nUSA🦅", messageConfig).setOrigin(0.5)
-        this.add.text(game.config.width/5, game.config.height/6, "3/12/2026\nSanta Cruz, CA", messageConfig).setOrigin(0.5)
-        this.message = this.add.text(game.config.width/4, game.config.height/2, "Send me $5", messageConfig).setOrigin(0.5)
+        this.add.bitmapText(game.config.width/1.4, 340, 'momstype', "Drew Gloria\n123 NotSharingThat\n######\nCA\nUSA").setOrigin(0.5).setLeftAlign().setFontSize(28).setLineSpacing(35)
+        this.add.bitmapText(game.config.width/5, game.config.height/6, 'momstype', "3/12/2026\nSanta Cruz, CA").setOrigin(0.5).setLeftAlign().setFontSize(30)
+        this.message = this.add.bitmapText(game.config.width/4, game.config.height/2, 'momstype', "Send me $5").setOrigin(0.5).setLeftAlign().setFontSize(40)
 
         // Reset game button (PRESS R)
         this.reset = this.input.keyboard.addKey('R')
