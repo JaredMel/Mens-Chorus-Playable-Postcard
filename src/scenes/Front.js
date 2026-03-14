@@ -106,23 +106,16 @@ class Front extends Phaser.Scene {
         this.clock.paused = true
         
         // timer for glow effect
-        this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray, this])
+        this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray])
 
         // Debugging info
         this.debug = this.input.keyboard.addKey('Z')
         document.getElementById('info').innerHTML = '<strong>Front.js</strong><br>Z: Show Correct Combination'
     }
 
-    glow(harray, sc) {
-        glowEffect = harray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 0, 0)
+    glow(harray) {
+        glowEffect = harray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
         glowHead = harray[correctCombo[index]-1]
-        sc.tweens.add({
-            targets: glowEffect,
-            outerStrength: 4,
-            yoyo: true,
-            loop: -1,
-            ease: 'sine.inout'
-        })
         glowIsOn = true
     }
 
