@@ -5,7 +5,7 @@ class Menu extends Phaser.Scene {
 
     preload() {
         this.load.path = './assets/'
-        this.load.image('background', 'BackgroundImages/background_image.png')
+        this.load.image('background', 'BackgroundImages/background.png')
         this.load.image('temp', 'Heads/TempHead.png')
         this.load.image('jared', 'Heads/Jared_Head.png')
         this.load.image('aiden', 'Heads/Aiden_Head.png')
