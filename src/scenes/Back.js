@@ -8,6 +8,13 @@ class Back extends Phaser.Scene {
         this.add.image(0, 0, 'back').setOrigin(0)
         let rick = this.add.image(785, 130, 'stamp').setInteractive()
 
+        // scene transition animation
+        const gameDiv = document.getElementById("phaser-game")
+        gameDiv.classList.add('flip-in')
+        this.flipSceneClock = this.time.delayedCall(1000, () => {
+            gameDiv.classList.remove('flip-in')
+        })
+
         // get rick rolled gamer
         rick.on('pointerdown', () => {
             window.open('https://youtu.be/dQw4w9WgXcQ?si=Jkc5B4pV6iaqHAHE', '_blank')

@@ -112,16 +112,24 @@ class Front extends Phaser.Scene {
         this.clock = this.time.delayedCall(10000, () => {
             this.song.stop()
             Tone.Transport.stop()
-            this.scene.start('backScene')
+            gameDiv.classList.add('flip-out')
+            this.flipSceneClock.paused = false
         })
         this.clock.paused = true
+
+        // scene transition animation
+        const gameDiv = document.getElementById("phaser-game")
+        this.flipSceneClock = this.time.delayedCall(1000, () => {
+            this.scene.start('backScene')
+            gameDiv.classList.remove('flip-out')
+        })
+        this.flipSceneClock.paused = true
         
         // timer for glow effect
         this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray])
 
-        // Debugging info CHANGE LATER
+        // Debugging info (PRESS Z)
         this.debug = this.input.keyboard.addKey('Z')
-        document.getElementById('info').innerHTML = '<strong>Front.js</strong><br>Z: Show Correct Combination'
     }
 
     // used to apply glow onto the correct head

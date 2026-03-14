@@ -11,8 +11,12 @@ let config = {
     type: Phaser.AUTO,
     width: 900,
     height: 600,
+    backgroundColor: '0x84c8ff',
     render: {
         pixelArt: true
+    },
+    scale: {
+        autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [ Menu, Front, Back ]
 }
