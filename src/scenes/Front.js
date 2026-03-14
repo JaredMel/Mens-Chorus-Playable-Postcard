@@ -29,7 +29,7 @@ class Front extends Phaser.Scene {
         this.comboDisplayTextDEBUG.visible = false
 
         // create and place heads
-        const graphics = this.add.graphics({ fillStyle: { color: 0xffffff } });
+        const color = new Phaser.Display.Color()
         let heads = ['jaden', 'jack', 'aiden', 'parker', 'alex', 'colby', 'jared', 'landon', 'drew', 'nathan', 'vince', 'seth']
         this.headArray = []
         let emitterConfig = {
@@ -40,14 +40,25 @@ class Front extends Phaser.Scene {
             emitting: false
         }
         let comboNoteIndex = 0
+        const layer1 = this.add.layer();
+        const layer2 = this.add.layer();
+        layer1.setDepth(1)
+        layer2.setDepth(2)
         for (let i = 0; i < 2; i++) {
             for (let j = 0; j < 6; j++) {
                 this.emitter = this.add.particles(spot, row, 'eighth', emitterConfig)
                 this.temp = new Head(this, comboNumber, spot, row, heads[comboNoteIndex], this.synth, this.emitter)
+                layer2.add(this.temp)
                 this.headArray[comboNoteIndex] = this.temp
-                let body = new Phaser.Geom.Rectangle(spot-25, row+25, 50, 100)
-                graphics.fillRectShape(body)
-                this.add.text(spot, row+60, comboNote[comboNoteIndex], comboDisplayConfig).setOrigin(0.5)
+                color.random(50)
+                let Rlegs = this.add.rectangle(spot+5, row+85, 15, 40, 0x000099).setOrigin(0)
+                let Llegs = this.add.rectangle(spot-20, row+85, 15, 40, 0x000099).setOrigin(0)
+                let body = this.add.rectangle(spot-25, row+25, 50, 60, color.color).setOrigin(0)
+                let Rarm = this.add.rectangle(spot+25, row+25, 15, 40, color.color).setOrigin(0)
+                let Larm = this.add.rectangle(spot-40, row+25, 15, 40, color.color).setOrigin(0)
+                layer1.add([Rlegs, Llegs, body, Rarm, Larm])
+                let n = this.add.text(spot, row+60, comboNote[comboNoteIndex], comboDisplayConfig).setOrigin(0.5)
+                layer2.add(n)
                 comboNoteIndex++
                 comboNumber++
                 spot += 100
@@ -95,16 +106,23 @@ class Front extends Phaser.Scene {
         this.clock.paused = true
         
         // timer for glow effect
-        this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray])
+        this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray, this])
 
         // Debugging info
         this.debug = this.input.keyboard.addKey('Z')
         document.getElementById('info').innerHTML = '<strong>Front.js</strong><br>Z: Show Correct Combination'
     }
 
-    glow(harray) {
-        glowEffect = harray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
+    glow(harray, sc) {
+        glowEffect = harray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 0, 0)
         glowHead = harray[correctCombo[index]-1]
+        sc.tweens.add({
+            targets: glowEffect,
+            outerStrength: 4,
+            yoyo: true,
+            loop: -1,
+            ease: 'sine.inout'
+        })
         glowIsOn = true
     }
 
