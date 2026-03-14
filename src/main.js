@@ -4,6 +4,17 @@
 // Citations: Nate Laffen - https://github.com/laffan/120-phaser-audio-examples
 //            Used some of his code as a start for manipulating Tone.js 
 //            (specifically making the song that plays after the correct combo)
+//            AlgesCorp - https://algescorp.com/product/risers.html
+//            used one of the images of their risers as a background image
+//            AdobeStock - https://stock.adobe.com/search?k=postcard+back
+//            used one of the images for the back of the postcard
+//            Rick Astley - https://www.youtube.com/watch?v=dQw4w9WgXcQ
+//            used his music to parody it using Tone.js and used a picture
+//            of him as a stamp
+//            Teacher Valarie - https://www.etsy.com/no-en/listing/1168059028/never-gonna-give-you-up-rick-roll-chorus?dd_referrer=https%3A%2F%2Fwww.google.com%2F
+//            used this sheet music to base the parody of it in Tone.js
+//            Liam Pitcher - https://www.liampitcher.com/classical-music-blog/note-values
+//            used their pictures of notes for particle effects
 "use strict"
 
 let config = {
