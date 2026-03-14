@@ -28,7 +28,7 @@ class Front extends Phaser.Scene {
         this.comboDisplayTextDEBUG = this.add.text(game.config.width/2, game.config.height - 50, comboDisplayDEBUG, comboDisplayConfig).setOrigin(0.5) // DEBUG
         this.comboDisplayTextDEBUG.visible = false
 
-        // create and place heads
+        // create and place heads with bodys and emitters
         const color = new Phaser.Display.Color()
         let heads = ['jaden', 'jack', 'aiden', 'parker', 'alex', 'colby', 'jared', 'landon', 'drew', 'nathan', 'vince', 'seth']
         this.headArray = []
@@ -40,29 +40,39 @@ class Front extends Phaser.Scene {
             emitting: false
         }
         let comboNoteIndex = 0
+        // used to make sure heads and text are above the body
         const layer1 = this.add.layer();
         const layer2 = this.add.layer();
         layer1.setDepth(1)
         layer2.setDepth(2)
+        // places people by row starting from first row, left to right
         for (let i = 0; i < 2; i++) {
             for (let j = 0; j < 6; j++) {
+                // create emitter and head
                 this.emitter = this.add.particles(spot, row, 'eighth', emitterConfig)
                 this.temp = new Head(this, comboNumber, spot, row, heads[comboNoteIndex], this.synth, this.emitter)
+                // add head to layer2
                 layer2.add(this.temp)
+                // add head to headArray (used later for glow effect)
                 this.headArray[comboNoteIndex] = this.temp
+                // creates body with randomized shirt color
                 color.random(50)
                 let Rlegs = this.add.rectangle(spot+5, row+85, 15, 40, 0x000099).setOrigin(0)
                 let Llegs = this.add.rectangle(spot-20, row+85, 15, 40, 0x000099).setOrigin(0)
                 let body = this.add.rectangle(spot-25, row+25, 50, 60, color.color).setOrigin(0)
                 let Rarm = this.add.rectangle(spot+25, row+25, 15, 40, color.color).setOrigin(0)
                 let Larm = this.add.rectangle(spot-40, row+25, 15, 40, color.color).setOrigin(0)
+                // add body to layer1
                 layer1.add([Rlegs, Llegs, body, Rarm, Larm])
+                // create note text and adds to layer2
                 let n = this.add.text(spot, row+60, comboNote[comboNoteIndex], comboDisplayConfig).setOrigin(0.5)
                 layer2.add(n)
+                // increment
                 comboNoteIndex++
                 comboNumber++
                 spot += 100
             }
+            // increment
             row -= 150
             spot = 200
         }
@@ -98,6 +108,7 @@ class Front extends Phaser.Scene {
         songSynth.triggerAttackRelease(val.note, val.dur, time);
         }, notes2);
         
+        // timer for changing scenes
         this.clock = this.time.delayedCall(10000, () => {
             this.song.stop()
             Tone.Transport.stop()
@@ -108,11 +119,12 @@ class Front extends Phaser.Scene {
         // timer for glow effect
         this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray])
 
-        // Debugging info
+        // Debugging info CHANGE LATER
         this.debug = this.input.keyboard.addKey('Z')
         document.getElementById('info').innerHTML = '<strong>Front.js</strong><br>Z: Show Correct Combination'
     }
 
+    // used to apply glow onto the correct head
     glow(harray) {
         glowEffect = harray[correctCombo[index]-1].postFX.addGlow(0xFFFF33, 4, 0)
         glowHead = harray[correctCombo[index]-1]
@@ -120,12 +132,14 @@ class Front extends Phaser.Scene {
     }
 
     update() {
-        //this.scene.start('backScene') // DEBUG
+        // update comboDisplay
         this.comboDisplayText.text = comboDisplay
+        // hidesInstructions once first not is clicked
         if (hideInstructions) {
             this.instructions.visible = false
             hideInstructions = false
         }
+        // checks if its time to switch scenes and plays song
         if (switchScenes) {
             this.glowClock.paused = true
             Tone.start().then(() => {
@@ -134,11 +148,13 @@ class Front extends Phaser.Scene {
                 this.clock.paused = false
             })
         }
+        // checks if the glowClock needs to be reset cause of a note being selected
         if (resetGlowClock) {
             this.time.removeEvent(this.glowClock)
             this.glowClock = this.time.delayedCall(10000, this.glow, [this.headArray])
             resetGlowClock = false
         }
+        // shows correct combo when pressing Z (used for debug purposes)
         if (Phaser.Input.Keyboard.JustDown(this.debug)) {
             this.comboDisplayTextDEBUG.visible = !this.comboDisplayTextDEBUG.visible
         }

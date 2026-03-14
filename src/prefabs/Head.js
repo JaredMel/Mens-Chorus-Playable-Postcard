@@ -6,33 +6,33 @@ class Head extends Phaser.GameObjects.Sprite {
 
         this.parentScene.add.existing(this) // add to existing scene, displayList, updateList
 
+        // listener for if head is clicked on
         this.on('pointerdown', function () {
-            currentCombo[index] = codeNum
-            hideInstructions = true
-            if (glowIsOn) {
-                glowHead.postFX.remove(glowEffect)
+            currentCombo[index] = codeNum // set code number to the current combination spot
+            hideInstructions = true // hides initial instructions
+            if (glowIsOn) { // check if glow is on if so
+                glowHead.postFX.remove(glowEffect) // turn it off
             }
-            glowIsOn = false
-            if (currentCombo[index] == correctCombo[index]) {
-                syn.triggerAttackRelease(notes[index], "16n")
-                emit.setTexture(noteLengths[index])
-                emit.explode(8)
-                comboDisplay += comboDisplayDEBUG[displayIndex] + comboDisplayDEBUG[displayIndex+1] + " "
-                displayIndex += 3
-                if (currentCombo.length == correctCombo.length) {
-                    switchScenes = true
-                } else {
-                    resetGlowClock = true
-                    index++;
+            glowIsOn = false // reset checker
+            if (currentCombo[index] == correctCombo[index]) { // check if correct combo
+                syn.triggerAttackRelease(comboNote[codeNum-1], "16n") // play note
+                emit.setTexture(noteLengths[index]) // set the emitters texture to the correct type of note
+                emit.explode(8) // play explode
+                comboDisplay += comboDisplayDEBUG[displayIndex] + comboDisplayDEBUG[displayIndex+1] + " " // update comboDisplay string
+                displayIndex += 3 // update comboDisplay's string index
+                if (currentCombo.length == correctCombo.length) { // check if correct combo has been solved
+                    switchScenes = true // update switchScenes
+                } else { // if not
+                    resetGlowClock = true // reset glow clock
+                    index++; // increment index
                 }
-            } else {
-                // Play Incorrect
-                syn.triggerAttackRelease(comboNote[codeNum-1], "16n")
-                comboDisplay = comboDisplayReset
-                displayIndex = 0
-                currentCombo = []
-                index = 0
-                resetGlowClock = true
+            } else { // if incorrect
+                syn.triggerAttackRelease(comboNote[codeNum-1], "16n") // play note
+                comboDisplay = comboDisplayReset // reset comboDisplay string
+                displayIndex = 0 // reset display index
+                currentCombo = [] // reset current combo
+                index = 0 // reset index
+                resetGlowClock = true // reset glowClock
             }
         })
     }
