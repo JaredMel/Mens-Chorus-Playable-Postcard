@@ -14,7 +14,7 @@ class Head extends Phaser.GameObjects.Sprite {
                 glowHead.postFX.remove(glowEffect) // turn it off
             }
             glowIsOn = false // reset checker
-            if (currentCombo[index] == correctCombo[index]) { // check if correct combo
+            if (currentCombo[index] == correctCombo[index] && !switchScenes) { // check if correct combo
                 syn.triggerAttackRelease(comboNote[codeNum-1], "16n") // play note
                 emit.setTexture(noteLengths[index]) // set the emitters texture to the correct type of note
                 emit.explode(8) // play explode
@@ -26,7 +26,7 @@ class Head extends Phaser.GameObjects.Sprite {
                     resetGlowClock = true // reset glow clock
                     index++; // increment index
                 }
-            } else { // if incorrect
+            } else if(!switchScenes){ // if incorrect
                 syn.triggerAttackRelease(comboNote[codeNum-1], "16n") // play note
                 comboDisplay = comboDisplayReset // reset comboDisplay string
                 displayIndex = 0 // reset display index

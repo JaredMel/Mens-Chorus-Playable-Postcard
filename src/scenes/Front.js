@@ -19,7 +19,7 @@ class Front extends Phaser.Scene {
 
         // create and place heads with bodys and emitters
         const color = new Phaser.Display.Color()
-        let heads = ['jaden', 'jack', 'aiden', 'parker', 'alex', 'colby', 'jared', 'landon', 'drew', 'nathan', 'vince', 'seth']
+        // let heads = ['jaden', 'jack', 'aiden', 'parker', 'alex', 'colby', 'jared', 'landon', 'drew', 'nathan', 'vince', 'seth']
         this.headArray = []
         let emitterConfig = {
             speed: 200,
@@ -39,7 +39,8 @@ class Front extends Phaser.Scene {
             for (let j = 0; j < 6; j++) {
                 // create emitter and head
                 this.emitter = this.add.particles(spot, row, 'eighth', emitterConfig)
-                this.temp = new Head(this, comboNumber, spot, row, heads[comboNoteIndex], this.synth, this.emitter)
+                // this.temp = new Head(this, comboNumber, spot, row, heads[comboNoteIndex], this.synth, this.emitter)
+                this.temp = new Head(this, comboNumber, spot, row, 'temp', this.synth, this.emitter).setScale(2)
                 // add head to layer2
                 layer2.add(this.temp)
                 // add head to headArray (used later for glow effect)
